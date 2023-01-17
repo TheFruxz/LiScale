@@ -135,7 +135,7 @@ object LicenseDataController {
 
 		if (license.expiration?.inPast == true) return@async EXPIRED
 		if (license.status != License.Status.ACTIVE) return@async ACCESS_REVOKED
-		limits?.firstOrNull { it.isAchieved() }?.let { return@async it.denyRespond }
+		limits?.firstOrNull { it.isAchieved(license.product, license.key) }?.let { return@async it.denyRespond }
 
 		return@async null
 	}
