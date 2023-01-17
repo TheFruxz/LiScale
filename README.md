@@ -1,4 +1,5 @@
-# ![LiScale Banner](https://user-images.githubusercontent.com/28064149/213034482-c1b3646b-0149-44e2-bc13-1c74f8a63e5d.png)
+# ![LiScale Banner](https://user-images.githubusercontent.com/28064149/213037782-95306083-f304-495d-ba73-e74867a7a8df.png)
+
 
 
 # 👋 Welcome to LiScale
