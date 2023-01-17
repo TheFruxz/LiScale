@@ -5,7 +5,7 @@ import de.fruxz.liscale.data.domain.License.Limit
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LicenseCreateData(
+open class LicenseData(
 	val product: String,
 	val expiration: Calendar? = null,
 	val limits: List<Limit>? = null,

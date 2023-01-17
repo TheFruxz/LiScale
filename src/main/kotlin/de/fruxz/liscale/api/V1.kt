@@ -5,10 +5,9 @@ import de.fruxz.ascend.extension.data.toJsonString
 import de.fruxz.ascend.extension.tryOrNull
 import de.fruxz.liscale.data.database.LicenseDataController
 import de.fruxz.liscale.data.database.UserDataController
-import de.fruxz.liscale.data.database.UserTable
 import de.fruxz.liscale.data.domain.LicenseActivationRespond
 import de.fruxz.liscale.data.domain.LicenseActivationRespond.DenyReason.NOT_FOUND
-import de.fruxz.liscale.data.domain.LicenseCreateData
+import de.fruxz.liscale.data.domain.LicenseData
 import de.fruxz.liscale.data.domain.User
 import de.fruxz.liscale.data.domain.User.UserData
 import io.ktor.http.*
@@ -18,7 +17,6 @@ import io.ktor.server.auth.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.util.*
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
@@ -95,7 +93,7 @@ object V1 {
 
 				post("v1/license/create") {
 					val executor = call.principal<User>()
-					val input = tryOrNull { call.receive<LicenseCreateData>() } ?: return@post
+					val input = tryOrNull { call.receive<LicenseData>() } ?: return@post
 
 					if (executor?.canAccessProduct(input.product) == true) {
 						tryOrNull {
