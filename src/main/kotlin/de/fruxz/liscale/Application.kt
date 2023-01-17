@@ -36,10 +36,7 @@ fun Application.module() {
 	install(ContentNegotiation) {
 		json(jsonBase)
 	}
-
-	configureSecurity()
-	configureRouting()
-
+	
 	with(V1) {
 		administration()
 		licenseManagement()

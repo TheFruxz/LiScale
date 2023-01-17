@@ -13,6 +13,7 @@ data class License(
 	val status: Status,
 
 	// TODO add title, description, etc.
+	// TODO maybe add session keys, which adds the ability to the limit to be per session
 
 	val expiration: Calendar?,
 	val limits: List<Limit>?,
