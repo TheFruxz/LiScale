@@ -15,5 +15,6 @@ The goal of this service is, to provide an easy-to-use way, to distribute your s
 These are the things, that are currently on the ToDo list
 
 - [ ] Create the Server Infrastructure
+- [ ] Console Control (CLI)
 - [ ] Create (Kotlin, Java, ...) APIs, to access licensing servers easily
 - [ ] Create Web-Panel for easy configuration (and stock installations)
