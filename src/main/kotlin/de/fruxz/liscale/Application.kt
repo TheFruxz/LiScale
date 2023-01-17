@@ -4,8 +4,6 @@ import de.fruxz.ascend.extension.data.addAscendJsonModuleModification
 import de.fruxz.ascend.extension.data.jsonBase
 import de.fruxz.liscale.api.V1
 import de.fruxz.liscale.data.domain.License
-import de.fruxz.liscale.plugins.configureRouting
-import de.fruxz.liscale.plugins.configureSecurity
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
@@ -36,7 +34,7 @@ fun Application.module() {
 	install(ContentNegotiation) {
 		json(jsonBase)
 	}
-	
+
 	with(V1) {
 		administration()
 		licenseManagement()

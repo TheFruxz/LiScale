@@ -1,5 +1,0 @@
-{
-    "db_url": "jdbc:sqlite:LiScale.db",
-    "db_user": "",
-    "db_key": ""
-}

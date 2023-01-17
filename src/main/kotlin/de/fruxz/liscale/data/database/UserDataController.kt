@@ -46,7 +46,7 @@ object UserDataController {
 	fun listUserProducts(username: String): List<String>? =
 		getUser(username)?.assignedProducts
 
-	fun setUserProducts(username: String, assignedProducts: List<String>): Boolean = smartTransaction {
+	fun setUserProducts(username: String, assignedProducts: List<String>?): Boolean = smartTransaction {
 		UserTable.update({ UserTable.username eq username }) {
 			it[UserTable.assignedProducts] = assignedProducts
 		}.let {
@@ -60,7 +60,7 @@ object UserDataController {
 		}
 	}
 
-	fun createUser(username: String, password: String, assignedProducts: List<String>): Boolean = smartTransaction {
+	fun createUser(username: String, password: String, assignedProducts: List<String>?): Boolean = smartTransaction {
 		if (getUser(username) != null) return@smartTransaction false
 
 		UserTable.insert {
