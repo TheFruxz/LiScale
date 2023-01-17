@@ -12,6 +12,8 @@ data class License(
 	val key: String,
 	val status: Status,
 
+	// TODO add title, description, etc.
+
 	val expiration: Calendar?,
 	val limits: List<Limit>?,
 
