@@ -15,6 +15,7 @@ object LicenseTable : Table("licenses") {
 	val product = varchar("product", 64)
 	val key = varchar("key", 64)
 	val status = enumeration<Status>("status").default(Status.ACTIVE)
+	val label = dynamicJson<Label>("label").default(Label.UNTITLED)
 
 	// Limitations
 	val expiration = calendar("expiration").nullable()

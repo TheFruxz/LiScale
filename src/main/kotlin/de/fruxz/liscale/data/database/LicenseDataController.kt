@@ -4,6 +4,7 @@ import de.fruxz.ascend.tool.timing.calendar.Calendar
 import de.fruxz.liscale.data.config.Configuration
 import de.fruxz.liscale.data.database.LicenseTable.sessions
 import de.fruxz.liscale.data.database.LicenseTable.usages
+import de.fruxz.liscale.data.database.UserDataController.listUsers
 import de.fruxz.liscale.data.domain.License
 import de.fruxz.liscale.data.domain.License.Limit
 import de.fruxz.liscale.data.domain.LicenseActivationRespond.DenyReason
@@ -53,10 +54,21 @@ object LicenseDataController {
 				product = it[LicenseTable.product],
 				key = it[LicenseTable.key],
 				status = it[LicenseTable.status],
+				label = it[LicenseTable.label],
 				expiration = it[LicenseTable.expiration],
 				limits = it[LicenseTable.limits],
 				created = it[LicenseTable.created],
 			) }
+	}
+
+	fun productInfo(product: String): Map<String, Any>? = smartTransaction {
+		when (product in listProducts()) {
+			true -> buildMap {
+				put("product", product)
+				put("licenses", "${LicenseTable.select { LicenseTable.product eq product }.count()}")
+			}
+			else -> null
+		}
 	}
 
 	fun createLicense(
@@ -78,6 +90,7 @@ object LicenseDataController {
 				product = result[LicenseTable.product],
 				key = result[LicenseTable.key],
 				status = result[LicenseTable.status],
+				label = result[LicenseTable.label],
 				expiration = result[LicenseTable.expiration],
 				limits = result[LicenseTable.limits],
 				created = Calendar.now(), // TODO exception : result[LicenseTable.created]
@@ -97,6 +110,7 @@ object LicenseDataController {
 					product = result[LicenseTable.product],
 					key = result[LicenseTable.key],
 					status = result[LicenseTable.status],
+					label = result[LicenseTable.label],
 					expiration = result[LicenseTable.expiration],
 					limits = result[LicenseTable.limits],
 					created = result[LicenseTable.created],
@@ -119,6 +133,14 @@ object LicenseDataController {
 	fun deleteLicense(product: String, key: String): Boolean = smartTransaction {
 
 		LicenseTable.deleteWhere { LicenseTable.product eq product and (LicenseTable.key eq key) }.let { result ->
+			return@smartTransaction result > 0
+		}
+
+	}
+
+	fun deleteProduct(product: String) = smartTransaction {
+
+		LicenseTable.deleteWhere { LicenseTable.product eq product }.let { result ->
 			return@smartTransaction result > 0
 		}
 

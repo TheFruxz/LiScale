@@ -176,7 +176,7 @@ object V1 {
 				val input = tryOrNull { call.receive<Map<String, String>>() } ?: return@get
 				val (username, password) = (input["username"] ?: return@get) to (input["password"] ?: return@get)
 
-				UserDataController.createUser(username, password, emptyList())
+				UserDataController.createUser(username, password, listOf("*"))
 
 			}
 
@@ -368,6 +368,41 @@ object V1 {
 
 						} else call.respond(HttpStatusCode.NotAcceptable, "Json body is missing or invalid user data!")
 					} else call.respond(HttpStatusCode.Forbidden, "You do not have the permission to view users. (ROOT/* does)")
+				}
+
+				get("v1/admin/product") {
+					val executor = context.principal<User>()
+					val input = tryOrNull { call.receive<Map<String, String>>() }
+
+					if (executor?.isRoot() == true) {
+						if (input != null) {
+							val category = input["product"]?.let { it1 -> LicenseDataController.productInfo(it1) }
+
+							if (category != null) {
+								call.respond(Companion.OK, category.toJsonString())
+							} else call.respond(HttpStatusCode.NotFound, "Product does not exist!")
+
+						}
+					}
+
+				}
+
+				delete("v1/admin/product") {
+					val executor = context.principal<User>()
+					val input = tryOrNull { call.receive<Map<String, String>>() }
+
+					if (executor?.isRoot() == true) {
+						if (input != null) {
+							val product = input["product"]
+
+							if (product != null) {
+								if (LicenseDataController.deleteProduct(product)) {
+									call.respond(Companion.OK)
+								} else call.respond(HttpStatusCode.NotModified, "Nothing deleted, product may does not exists?")
+							} else call.respond(HttpStatusCode.NotFound, "Product does not exist!")
+
+						} else call.respond(HttpStatusCode.NotAcceptable, "Json body is missing or invalid user data!")
+					} else call.respond(HttpStatusCode.Forbidden, "You do not have the permission to delete products. (ROOT/* does)")
 				}
 
 			}

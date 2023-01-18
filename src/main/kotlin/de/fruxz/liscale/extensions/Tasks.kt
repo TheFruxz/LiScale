@@ -8,6 +8,6 @@ import kotlinx.coroutines.launch
 
 val scope = CoroutineScope(SupervisorJob())
 
-fun tasks(process: suspend CoroutineScope.() -> Unit) = scope.launch(start = UNDISPATCHED, block = process)
+fun task(process: suspend CoroutineScope.() -> Unit) = scope.launch(start = UNDISPATCHED, block = process)
 
 fun <T> async(process: suspend CoroutineScope.() -> T) = scope.async(start = UNDISPATCHED, block = process)
