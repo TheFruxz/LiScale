@@ -251,7 +251,7 @@ object V1 {
 					} else call.respond(HttpStatusCode.Forbidden, "You do not have the permission to delete users. (ROOT/* does)")
 				}
 
-				get("v1/admin/user/products") {
+				get("v1/admin/user/products/list") {
 					val input = tryOrNull { call.receive<Map<String, String>>() }
 
 					if (input != null) {
@@ -267,7 +267,7 @@ object V1 {
 
 				}
 
-				put("v1/admin/user/products") {
+				put("v1/admin/user/products/set") {
 					val executor = context.principal<User>()
 					val input = tryOrNull(false) { call.receive<JsonElement>() }
 
@@ -297,7 +297,7 @@ object V1 {
 					} else call.respond(HttpStatusCode.Forbidden, "You do not have the permission to change user product assignments. (ROOT/* does)")
 				}
 
-				patch("v1/admin/user/password") {
+				patch("v1/admin/user/password/set") {
 					val executor = context.principal<User>()
 					val input = tryOrNull { jsonBase.parseToJsonElement(call.receiveText()) }
 
@@ -370,7 +370,7 @@ object V1 {
 					} else call.respond(HttpStatusCode.Forbidden, "You do not have the permission to view users. (ROOT/* does)")
 				}
 
-				get("v1/admin/product") {
+				get("v1/admin/product/view") {
 					val executor = context.principal<User>()
 					val input = tryOrNull { call.receive<Map<String, String>>() }
 
@@ -387,7 +387,7 @@ object V1 {
 
 				}
 
-				delete("v1/admin/product") {
+				delete("v1/admin/product/delete") {
 					val executor = context.principal<User>()
 					val input = tryOrNull { call.receive<Map<String, String>>() }
 
