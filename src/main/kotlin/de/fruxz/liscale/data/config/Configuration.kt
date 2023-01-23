@@ -16,14 +16,20 @@ object Configuration {
 
 	// database
 
-	val databaseUrl by property(config, "db_url") { "jdbc:sqlite:LiScale.db" }
+	val databaseUrl by property(config, "db-url") { "jdbc:sqlite:LiScale.db" }
 
-	val databaseUser by property(config, "db_user") { "" }
+	val databaseUser by property(config, "db-user") { "" }
 
-	val databaseKey by property(config, "db_key") { "" }
+	val databaseKey by property(config, "db-key") { "" }
 
 	// tables
 
 	val tableFormat by property(config, "table-format") { "ls_%" }
+
+	// server
+
+	val host by property(config, "server-host") { "0.0.0.0" }
+
+	val port by property(config, "server-port") { 8080 }
 
 }
