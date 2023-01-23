@@ -3,12 +3,13 @@ package de.fruxz.liscale.data.database
 import de.fruxz.ascend.tool.json.dynamicJson
 import de.fruxz.ascend.tool.timing.calendar.calendar
 import de.fruxz.liscale.data.config.Configuration
+import de.fruxz.liscale.data.config.Configuration.tableFormat
 import de.fruxz.liscale.data.domain.License.*
 import org.jetbrains.exposed.sql.Table
 import java.lang.Integer.min
 import kotlin.math.max
 
-object LicenseTable : Table("licenses") {
+object LicenseTable : Table(tableFormat.replace("%", "licenses")) {
 
 	// Data
 	val id = integer("id").autoIncrement()
