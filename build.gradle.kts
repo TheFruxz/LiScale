@@ -38,7 +38,7 @@ dependencies {
 
 	// MoltenKT
 
-	implementation("com.github.TheFruxz:Ascend:18.0.0")
+	implementation("com.github.TheFruxz:Ascend:20.0.0")
 
 	// KotlinX
 

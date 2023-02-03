@@ -1,5 +1,6 @@
 package de.fruxz.liscale.data.database
 
+import de.fruxz.ascend.extension.exposed.initializeTables
 import de.fruxz.ascend.tool.timing.calendar.Calendar
 import de.fruxz.liscale.data.config.Configuration
 import de.fruxz.liscale.data.database.LicenseTable.sessions
@@ -34,9 +35,7 @@ object LicenseDataController {
 
 	fun init() {
 		::database.invoke() // initializing database value
-		transaction(db = database) {
-			SchemaUtils.create(UserTable, LicenseTable)
-		}
+		transaction(db = database) { initializeTables(UserTable, LicenseTable) }
 	}
 
 	fun listProducts(): List<String> = smartTransaction {
