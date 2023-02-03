@@ -172,14 +172,6 @@ object V1 {
 
 		routing {
 
-			get("register-demo") {
-				val input = tryOrNull { call.receive<Map<String, String>>() } ?: return@get
-				val (username, password) = (input["username"] ?: return@get) to (input["password"] ?: return@get)
-
-				UserDataController.createUser(username, password, listOf("*"))
-
-			}
-
 			authenticate("basic") {
 
 				get("v1/admin/product/list") {
